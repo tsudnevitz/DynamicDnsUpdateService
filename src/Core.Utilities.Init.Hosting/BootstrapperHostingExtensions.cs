@@ -2,12 +2,20 @@
 using System.Collections.Generic;
 using Core.Utilities.Init.Processes;
 using Core.Utilities.Init.Validation;
+using Microsoft.DotNet.PlatformAbstractions;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using RuntimeEnvironment = Microsoft.DotNet.PlatformAbstractions.RuntimeEnvironment;
 
 namespace Core.Utilities.Init.Hosting
 {
   public static class BootstrapperHostingExtensions
   {
+    public static IHostBuilder On(this IHostBuilder builder, Platform platform, Func<IHostBuilder, IHostBuilder> func)
+    {
+      return RuntimeEnvironment.OperatingSystemPlatform == platform ? func(builder) : builder;
+    }
+
     public static IServiceCollection UseBootstrapper(
       this IServiceCollection services,
       Action<IInitializersConfigurator> config,
@@ -50,7 +58,7 @@ namespace Core.Utilities.Init.Hosting
       }
       else
         services.AddSingleton(constructor);
-
+      
       return services.AddHostedService<BootstrapperHostedService>();
     }
   }
