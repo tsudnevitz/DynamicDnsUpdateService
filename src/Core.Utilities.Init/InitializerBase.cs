@@ -34,17 +34,14 @@ namespace Core.Utilities.Init
     public Type[] OnStartRunAfter { get; }
     public Type[] OnStopRunAfter { get; }
 
-    protected abstract Task OnStartAsync();
+    protected abstract Task OnStartAsync(CancellationToken cancellationToken);
 
-    protected abstract Task OnStopAsync();
+    protected abstract Task OnStopAsync(CancellationToken cancellationToken);
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
       if (cancellationToken == null)
         throw new ArgumentNullException(nameof(cancellationToken));
-
-      if (cancellationToken.IsCancellationRequested)
-        return;
 
       ThrowOnInvalidStartState();
 
@@ -56,7 +53,7 @@ namespace Core.Utilities.Init
 
       try
       {
-        await OnStartAsync().ConfigureAwait(false);
+        await OnStartAsync(cancellationToken);
         _isInitialized = true;
       }
       finally
@@ -70,9 +67,6 @@ namespace Core.Utilities.Init
       if (cancellationToken == null)
         throw new ArgumentNullException(nameof(cancellationToken));
 
-      if (cancellationToken.IsCancellationRequested)
-        return;
-
       ThrowOnInvalidStopState();
 
       lock (_lock)
@@ -83,7 +77,7 @@ namespace Core.Utilities.Init
       
       try
       {
-        await OnStopAsync().ConfigureAwait(false);
+        await OnStopAsync(cancellationToken);
         _isInitialized = false;
       }
       finally

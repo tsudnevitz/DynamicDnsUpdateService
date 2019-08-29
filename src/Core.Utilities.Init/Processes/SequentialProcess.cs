@@ -10,7 +10,7 @@ namespace Core.Utilities.Init.Processes
     {
     }
 
-    private SequentialProcess(IEnumerable<IProcess> collection) : base(collection)
+    public SequentialProcess(IEnumerable<IProcess> collection) : base(collection)
     {
     }
 

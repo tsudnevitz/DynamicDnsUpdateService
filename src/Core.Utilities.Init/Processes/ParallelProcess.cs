@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,7 +12,7 @@ namespace Core.Utilities.Init.Processes
     {
     }
 
-    private ParallelProcess(IEnumerable<IProcess> collection) 
+    public ParallelProcess(IEnumerable<IProcess> collection) 
       : base(collection)
     {
     }
@@ -22,7 +23,20 @@ namespace Core.Utilities.Init.Processes
         return;
 
       var tasks = this.Select(x => x.RunAsync(cancellationToken)).ToArray();
-      await Task.WhenAll(tasks);
+
+      // changing weird .net await aggregated exception handling
+      // see: https://stackoverflow.com/questions/12007781/why-doesnt-await-on-task-whenall-throw-an-aggregateexception
+
+      var task = Task.WhenAll(tasks);
+      
+      try
+      {
+        await task;
+      }
+      catch
+      {
+        ExceptionDispatchInfo.Capture(task.Exception).Throw();
+      }
     }
 
     public IComplexProcess Create(IEnumerable<IProcess> items)

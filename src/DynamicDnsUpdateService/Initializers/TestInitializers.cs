@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Core.Utilities.Init;
 using Core.Utilities.Init.Attributes;
@@ -19,18 +20,18 @@ namespace DynamicDnsUpdateService.Initializers
       _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
-    protected override async Task OnStartAsync()
+    protected override async Task OnStartAsync(CancellationToken cancellationToken)
     {
       _logger.Log(LogLevel.Information, $"Starting {GetType().Name}.");
-      await Task.Delay(TimeSpan.FromSeconds(10));
+      await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
       _logger.Log(LogLevel.Information, $"Started {GetType().Name}.");
 
     }
 
-    protected override async Task OnStopAsync()
+    protected override async Task OnStopAsync(CancellationToken cancellationToken)
     {
       _logger.Log(LogLevel.Information, $"Stopping {GetType().Name}.");
-      await Task.Delay(TimeSpan.FromSeconds(10));
+      await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
       _logger.Log(LogLevel.Information, $"Stopped {GetType().Name}.");
     }
   }
@@ -46,18 +47,18 @@ namespace DynamicDnsUpdateService.Initializers
       _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
-    protected override async Task OnStartAsync()
+    protected override async Task OnStartAsync(CancellationToken cancellationToken)
     {
       _logger.Log(LogLevel.Information, $"Starting {GetType().Name}.");
-      await Task.Delay(TimeSpan.FromSeconds(10));
+      await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
       _logger.Log(LogLevel.Information, $"Started {GetType().Name}.");
 
     }
 
-    protected override async Task OnStopAsync()
+    protected override async Task OnStopAsync(CancellationToken cancellationToken)
     {
       _logger.Log(LogLevel.Information, $"Stopping {GetType().Name}.");
-      await Task.Delay(TimeSpan.FromSeconds(10));
+      await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
       _logger.Log(LogLevel.Information, $"Stopped {GetType().Name}.");
     }
   }
