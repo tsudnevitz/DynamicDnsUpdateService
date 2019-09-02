@@ -2,15 +2,16 @@
   "provider": "no-ip",
 
   "no-ip": {
-    "max-update-interval": 1800
+    "maxUpdateInterval": 1800
   },
 
   "external-ip-detection": {
-    "mode": "ipfy",
+    "mode": "ipfy"
+  },
 
-    "ipfy": {
-      "url": "https://api.ipify.org",
-      "query-interval": 60
-    }
+  "ipfy": {
+    "url": "https://api.ipify.org",
+    "queryInterval": 60,
+    "startImmediately":  true 
   }
 }

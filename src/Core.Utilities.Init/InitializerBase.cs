@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Core.Utilities.Extensions;
 using Core.Utilities.Init.Attributes;
 using Core.Utilities.Init.Enums;
+using Core.Utilities.Init.Extensions;
 
 namespace Core.Utilities.Init
 {

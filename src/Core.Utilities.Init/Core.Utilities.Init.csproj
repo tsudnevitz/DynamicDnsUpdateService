@@ -9,8 +9,4 @@
     <PackageReference Include="Nito.AsyncEx.Coordination" Version="5.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Core.Utilities\Core.Utilities.csproj" />
-  </ItemGroup>
-
 </Project>

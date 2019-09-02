@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Core.Utilities.Extensions;
+using Core.Utilities.Init.Extensions;
 
 namespace Core.Utilities.Init.Hosting
 {

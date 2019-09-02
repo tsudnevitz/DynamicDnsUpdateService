@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Core.Utilities.Extensions
+namespace Core.Utilities.Init.Extensions
 {
   public static class TypeExtensions
   {
@@ -23,7 +23,8 @@ namespace Core.Utilities.Extensions
     {
       var interfaceTypes = givenType.GetInterfaces();
 
-      foreach (var it in interfaceTypes)        if (it.IsGenericType && it.GetGenericTypeDefinition() == genericType)
+      foreach (var it in interfaceTypes)
+        if (it.IsGenericType && it.GetGenericTypeDefinition() == genericType)
           return true;
 
       if (givenType.IsGenericType && givenType.GetGenericTypeDefinition() == genericType)

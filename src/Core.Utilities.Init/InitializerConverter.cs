@@ -5,7 +5,7 @@ using Core.Utilities.Init.Processes;
 
 namespace Core.Utilities.Init
 {
-  public class InitializerConverter
+  internal class InitializerConverter
   {
     private static readonly Func<IInitializer, RunModes, bool> StartModeSelector =
       (initializer, mode) => initializer.StartMode == mode;
